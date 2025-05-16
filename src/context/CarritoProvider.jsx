@@ -40,9 +40,9 @@ export const CarritoProvider = ({ children }) => {
       case "[Carrito] Agregar Compra":
         return [...state, action.payload];
         break;
-      case "[Carrito] Aumentar Cantidad Compra":
+      case "[Carrito] Aumentar Cantidad Compra": //Agregar cantidad y Modificar
         break;
-      case "[Carrito] Disminuir Cantidad de Compra":
+      case "[Carrito] Disminuir Cantidad de Compra": //Disminuir cantidad y Modificar
         break;
       case "[Carrito] Eliminar Compra":
         return state.filter((compra) => compra.id !== action.payload);
@@ -53,5 +53,17 @@ export const CarritoProvider = ({ children }) => {
     }
   };
 
-  return <CarritoContext.Provider>{children}</CarritoContext.Provider>;
+  return (
+    <CarritoContext.Provider
+      value={{
+        listaCompras,
+        agregarCompra,
+        aumentarCantidad,
+        disminuirCantidad,
+        eliminarCompra,
+      }}
+    >
+      {children}
+    </CarritoContext.Provider>
+  );
 };
