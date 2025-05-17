@@ -1,15 +1,25 @@
 import { useState } from "react";
 import "../style/card.css";
 
-export default function Card({ imagen, titulo, descripcion, precio }) {
+export default function Card({
+  imagen,
+  titulo,
+  descripcion,
+  precio,
+  handleAgregar,
+  handleQuitar,
+  handleAumertar,
+  handleDisminuir,
+}) {
   const [added, SetAdded] = useState(false);
-
   const clickQuitar = () => {
     SetAdded(false);
+    handleQuitar();
   };
 
   const clickAgregar = () => {
     SetAdded(true);
+    handleAgregar();
   };
 
   return (

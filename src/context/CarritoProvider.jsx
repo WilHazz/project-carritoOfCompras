@@ -3,10 +3,45 @@ import { CarritoContext } from "./CarritoContext";
 
 const initialState = [];
 
+const comprasReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "[Carrito] Agregar Compra":
+      return [...state, action.payload];
+      break;
+    case "[Carrito] Aumentar Cantidad Compra":
+      return state.map((item) => {
+        const cant = item.cantidad + 1;
+        if (item.id === action.payload)
+          return {
+            ...item,
+            cantidad: cant,
+          };
+      });
+
+    case "[Carrito] Disminuir Cantidad de Compra":
+      return state.map((item) => {
+        const cant = item.cantidad - 1;
+        if (item.id === action.payload && item.cantidad > 1)
+          return {
+            ...item,
+            cantidad: cant,
+          };
+        return item;
+      });
+      break;
+    case "[Carrito] Eliminar Compra":
+      return state.filter((compra) => compra.id !== action.payload);
+
+    default:
+      return state;
+  }
+};
+
 export const CarritoProvider = ({ children }) => {
   const [listaCompras, dispatch] = useReducer(comprasReducer, initialState);
 
   const agregarCompra = (compra) => {
+    compra.cantidad = 1;
     const action = {
       type: "[Carrito] Agregar Compra",
       payload: compra,
@@ -33,24 +68,6 @@ export const CarritoProvider = ({ children }) => {
       payload: id,
     };
     dispatch(action);
-  };
-
-  const comprasReducer = (state = (initialState.action = {})) => {
-    switch (action.type) {
-      case "[Carrito] Agregar Compra":
-        return [...state, action.payload];
-        break;
-      case "[Carrito] Aumentar Cantidad Compra": //Agregar cantidad y Modificar
-        break;
-      case "[Carrito] Disminuir Cantidad de Compra": //Disminuir cantidad y Modificar
-        break;
-      case "[Carrito] Eliminar Compra":
-        return state.filter((compra) => compra.id !== action.payload);
-        break;
-
-      default:
-        break;
-    }
   };
 
   return (

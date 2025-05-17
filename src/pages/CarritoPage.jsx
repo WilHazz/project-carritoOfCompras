@@ -1,6 +1,16 @@
 import React from "react";
+import { useContext } from "react";
+import { CarritoContext } from "../context/CarritoContext";
 
 export const CarritoPage = () => {
+  const {
+    listaCompras,
+    agregarCompra,
+    aumentarCantidad,
+    disminuirCantidad,
+    eliminarCompra,
+  } = useContext(CarritoContext);
+
   return (
     <>
       <table className="table">
@@ -13,12 +23,22 @@ export const CarritoPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {/* <th scope="row">{producto.nombre}</th> */}
-            <td></td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
+          {listaCompras.map((item) => (
+            <tr key={item.id}>
+              <td>{item.title}</td>
+              <td>{item.price}</td>
+              <td>1</td>
+              <td>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => eliminarCompra(item.id)}
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
 
