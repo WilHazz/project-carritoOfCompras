@@ -63,11 +63,16 @@ export const CarritoPage = () => {
             </tr>
           ))}
           <th>
-            <b>TOTAL: </b>
+            <b>
+              <br />
+              TOTAL:{" "}
+            </b>
           </th>
           <td></td>
           <td></td>
-          <td>${calcularTotal()}</td>
+          <td>
+            <br />${calcularTotal()}
+          </td>
         </tbody>
       </table>
 
