@@ -11,6 +11,15 @@ export const CarritoPage = () => {
     eliminarCompra,
   } = useContext(CarritoContext);
 
+  const calcularTotal = () => {
+    return listaCompras
+      .reduce((total, item) => total + item.price * item.cantidad, 0)
+      .toFixed(2);
+  };
+
+  const handleImpresion = () => {
+    print();
+  };
   return (
     <>
       <table className="table">
@@ -27,7 +36,21 @@ export const CarritoPage = () => {
             <tr key={item.id}>
               <td>{item.title}</td>
               <td>{item.price}</td>
-              <td>1</td>
+              <td>
+                <button
+                  className="btn btn-ouline-primary"
+                  onClick={() => disminuirCantidad(item.id)}
+                >
+                  -
+                </button>
+                <button className="btn btn-primary">{item.cantidad}</button>
+                <button
+                  className="btn btn-ouline-primary"
+                  onClick={() => aumentarCantidad(item.id)}
+                >
+                  +
+                </button>
+              </td>
               <td>
                 <button
                   type="button"
@@ -39,11 +62,19 @@ export const CarritoPage = () => {
               </td>
             </tr>
           ))}
+          <th>
+            <b>TOTAL: </b>
+          </th>
+          <td></td>
+          <td></td>
+          <td>${calcularTotal()}</td>
         </tbody>
       </table>
 
       <div className="d-grid gap-2">
-        <button className="btn btn-primary">Comprar</button>
+        <button className="btn btn-primary" onClick={handleImpresion}>
+          Comprar
+        </button>
       </div>
     </>
   );

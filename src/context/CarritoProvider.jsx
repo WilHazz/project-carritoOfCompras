@@ -16,6 +16,7 @@ const comprasReducer = (state = initialState, action) => {
             ...item,
             cantidad: cant,
           };
+        return item;
       });
 
     case "[Carrito] Disminuir Cantidad de Compra":
