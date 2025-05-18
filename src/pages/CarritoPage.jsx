@@ -72,7 +72,11 @@ export const CarritoPage = () => {
       </table>
 
       <div className="d-grid gap-2">
-        <button className="btn btn-primary" onClick={handleImpresion}>
+        <button
+          className="btn btn-primary"
+          onClick={handleImpresion}
+          disabled={listaCompras < 1}
+        >
           Comprar
         </button>
       </div>
